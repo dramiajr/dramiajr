@@ -12,7 +12,7 @@
 
 <p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=dramiajr&show_icons=true&theme=tokyonight&hide_border=true&locale=en&layout=compact" alt="dramiajr" /></p>
 
-<hr>
+<h1></h1>
 <h3>Languages and Tools:</h3>
 <div align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo"  />
