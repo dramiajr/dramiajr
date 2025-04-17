@@ -3,7 +3,7 @@
 <div align="left">
   <a href="https://www.youtube.com/@EchoDRJ" target="_blank" style="text-decoration: none;"><img src="https://img.shields.io/static/v1?message=Youtube&logo=youtube&label=&color=FF0000&logoColor=white&labelColor=&style=for-the-badge" height="32" alt="youtube logo" /></a>
   <a href="mailto:davidramiajr@gmail.com" target="_blank" style="text-decoration: none;"><img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="32" alt="gmail logo" /></a>
-  <a href="https://www.linkedin.com/in/david-ramia-jr-a709b4309/" target="_blank" style="text-decoration: none;"><img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="32" alt="linkedin logo" /></a>
+  <a href="https://www.linkedin.com/in/davidramiajr/" target="_blank" style="text-decoration: none;"><img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="32" alt="linkedin logo" /></a>
   </div>
 
 <h3 align="left">Just a place to share my projects and scripts</h3>
