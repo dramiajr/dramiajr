@@ -14,30 +14,25 @@ jobs:
 
     steps:
       - name: Checkout profile repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
+          token: ${{ secrets.PROFILE_STATS_TOKEN }}
           persist-credentials: true
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Generate language stats SVG
         run: node scripts/generate-top-langs.js
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-
-      - name: Debug git status
-        run: |
-          git status --short
-          git remote -v
-          echo "Branch: ${GITHUB_REF_NAME}"
+          GITHUB_TOKEN: ${{ secrets.PROFILE_STATS_TOKEN }}
 
       - name: Commit updated SVG
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "David Ramia Jr"
+          git config user.email "davidramiajr@gmail.com"
 
           git add profile/top-langs.svg
 
