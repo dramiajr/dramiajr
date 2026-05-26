@@ -1,1 +1,37 @@
+<svg width="440" height="245" viewBox="0 0 440 245" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="440" height="245" rx="14" fill="#0D1117"/>
+  <rect x="0.5" y="0.5" width="439" height="244" rx="13.5" stroke="#30363D"/>
 
+  <text x="24" y="36" fill="#F0F6FC" font-family="Segoe UI, Ubuntu, sans-serif" font-size="18" font-weight="700">
+    Project Language Mix
+  </text>
+
+  <text x="24" y="58" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
+    Based on public repositories
+  </text>
+  
+  <text x="24" y="92" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">JavaScript</text>
+  <rect x="132" y="82" width="210" height="9" rx="4.5" fill="#21262D"/>
+  <rect x="132" y="82" width="120" height="9" rx="4.5" fill="#F1E05A"/>
+  <text x="365" y="92" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">57%</text>
+  <text x="24" y="122" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">Python</text>
+  <rect x="132" y="112" width="210" height="9" rx="4.5" fill="#21262D"/>
+  <rect x="132" y="112" width="46" height="9" rx="4.5" fill="#3776AB"/>
+  <text x="365" y="122" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">22%</text>
+  <text x="24" y="152" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">CSS</text>
+  <rect x="132" y="142" width="210" height="9" rx="4.5" fill="#21262D"/>
+  <rect x="132" y="142" width="23" height="9" rx="4.5" fill="#563D7C"/>
+  <text x="365" y="152" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">11%</text>
+  <text x="24" y="182" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">HTML</text>
+  <rect x="132" y="172" width="210" height="9" rx="4.5" fill="#21262D"/>
+  <rect x="132" y="172" width="13" height="9" rx="4.5" fill="#E34C26"/>
+  <text x="365" y="182" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">6%</text>
+  <text x="24" y="212" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">Shell</text>
+  <rect x="132" y="202" width="210" height="9" rx="4.5" fill="#21262D"/>
+  <rect x="132" y="202" width="8" height="9" rx="4.5" fill="#89E051"/>
+  <text x="365" y="212" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">3%</text>
+
+  <text x="24" y="222" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
+    Networking • Automation • Linux • Internal Tools
+  </text>
+</svg>
