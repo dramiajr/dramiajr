@@ -7,12 +7,13 @@ const OUTPUT_PATH = path.join(__dirname, "../profile/top-languages.svg");
 const TOKEN = process.env.GITHUB_TOKEN;
 
 const COLORS = {
-  Python: "#3776AB",
   JavaScript: "#F1E05A",
-  TypeScript: "#3178C6",
-  HTML: "#E34C26",
+  Python: "#3776AB",
   CSS: "#563D7C",
+  HTML: "#E34C26",
   Shell: "#89E051",
+  Bash: "#89E051",
+  TypeScript: "#3178C6",
   Dockerfile: "#384D54",
   SQL: "#E38C00",
   PLpgSQL: "#336791",
@@ -108,67 +109,70 @@ function buildRows(languageTotals) {
 
   if (entries.length === 0 || totalBytes === 0) {
     return `
-  <text x="24" y="112" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">
+  <text x="24" y="125" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">
     No public language data found.
   </text>`;
   }
 
   const topLanguages = entries.slice(0, 5);
 
-  const rowStartY = 103;
-  const rowGap = 28;
-  const barX = 170;
-  const barMaxWidth = 150;
+  const rowStartY = 122;
+  const rowGap = 32;
+  const barX = 190;
+  const barMaxWidth = 160;
+  const percentX = 385;
 
   return topLanguages
     .map(([language, bytes], index) => {
       const percent = Math.round((bytes / totalBytes) * 100);
-      const barWidth = Math.max(6, Math.round((percent / 100) * barMaxWidth));
+      const barWidth = Math.max(8, Math.round((percent / 100) * barMaxWidth));
       const y = rowStartY + index * rowGap;
       const color = COLORS[language] || COLORS.default;
 
       return `
   <circle cx="30" cy="${y - 4}" r="5" fill="${color}"/>
   <text x="44" y="${y}" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">${escapeXml(language)}</text>
-
   <rect x="${barX}" y="${y - 10}" width="${barMaxWidth}" height="9" rx="4.5" fill="#21262D"/>
   <rect x="${barX}" y="${y - 10}" width="${barWidth}" height="9" rx="4.5" fill="${color}"/>
-
-  <text x="348" y="${y}" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">${percent}%</text>`;
+  <text x="${percentX}" y="${y}" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">${percent}%</text>`;
     })
     .join("");
 }
 
 function buildSvg(languageTotals) {
-  const width = 440;
-  const height = 245;
+  const width = 470;
+  const height = 305;
   const rows = buildRows(languageTotals);
 
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="${width}" height="${height}" rx="14" fill="#0D1117"/>
-  <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="13.5" stroke="#30363D"/>
+  <rect width="${width}" height="${height}" rx="16" fill="#0D1117"/>
+  <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="15.5" stroke="#30363D"/>
 
-  <text x="24" y="36" fill="#F0F6FC" font-family="Segoe UI, Ubuntu, sans-serif" font-size="18" font-weight="700">
+  <text x="24" y="40" fill="#F0F6FC" font-family="Segoe UI, Ubuntu, sans-serif" font-size="20" font-weight="700">
     Project Language Mix
   </text>
 
-  <text x="24" y="58" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
+  <text x="24" y="64" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
     Based on public repositories
   </text>
 
-  <text x="24" y="80" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
+  <line x1="24" y1="82" x2="446" y2="82" stroke="#21262D"/>
+
+  <text x="24" y="100" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
     LANGUAGE
   </text>
-  <text x="170" y="80" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
+  <text x="190" y="100" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
     USAGE
   </text>
-  <text x="348" y="80" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
+  <text x="385" y="100" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
     %
   </text>
 
   ${rows}
 
-  <text x="24" y="222" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
+  <line x1="24" y1="262" x2="446" y2="262" stroke="#21262D"/>
+
+  <text x="24" y="284" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
     Networking • Automation • Linux • Internal Tools
   </text>
 </svg>
