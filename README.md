@@ -5,22 +5,25 @@
 <br>
 
 <p align="left">
-  Just a place to share my projects, scripts, and technical growth.
-  <br><br>
-  "Always measure an obstacle next to the size of the dream you're pursuing."
-  <br><br>
-  - Bill Vaughan
+  Network technician, builder, and hands-on problem solver focused on networking, Linux, automation, and practical internal tools.
 </p>
+
+<blockquote>
+  <p>"Always measure an obstacle next to the size of the dream you're pursuing."</p>
+  <p><strong>- Bill Vaughan</strong></p>
+</blockquote>
 
 <h2 align="left">About Me</h2>
 
 <p align="left">
-  I'm a hands-on network technician focused on networking, Linux, automation, and practical tools that solve real workflow problems.
-  <br><br>
-  I use this GitHub to document what I'm building, what I'm learning, and the scripts or applications I create along the way. A lot of my projects come from real technical problems I run into while troubleshooting, improving workflows, or building better internal tools.
-  <br><br>
-  Currently working with Python, JavaScript, Next.js, Docker, PostgreSQL, Linux, and Bash while continuing to grow deeper in networking and infrastructure.
+  I use this GitHub to document what I'm building, what I'm learning, and the scripts or applications I create along the way.
 </p>
+
+<ul>
+  <li>Working on projects around networking workflows, troubleshooting, automation, and internal tooling.</li>
+  <li>Building with Python, JavaScript, Next.js, Docker, PostgreSQL, Linux, and Bash.</li>
+  <li>Continuing to grow deeper in networking, infrastructure, and practical software development.</li>
+</ul>
 
 <p align="left">
   <img src="./profile/top-languages.svg" alt="Project Language Mix" />
@@ -30,24 +33,24 @@
 
 <div align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="40" alt="css logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="40" alt="postgresql logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" height="40" alt="docker logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="40" alt="vscode logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" alt="python logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" height="40" alt="linux logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" height="40" alt="nextjs logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg" height="40" alt="tailwindcss logo" />
-  <img width="12" />
+  <img width="14" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" height="40" alt="bash logo" />
 </div>
