@@ -63,7 +63,7 @@ jobs:
 
           git commit -m "Update profile language stats"
 
-          git remote set-url origin https://x-access-token:${PROFILE_STATS_TOKEN}@github.com/dramiajr/dramiajr.git
+          git remote set-url origin https://x-access-token:${STAT_CODE_TOKEN}@github.com/dramiajr/dramiajr.git
           git push origin HEAD:${GITHUB_REF_NAME}
         env:
-          PROFILE_STATS_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
+          STAT_CODE_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
