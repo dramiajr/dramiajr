@@ -22,6 +22,12 @@
   Currently working with Python, JavaScript, Next.js, Docker, PostgreSQL, Linux, and Bash while continuing to grow deeper in networking and infrastructure.
 </p>
 
+<h2 align="left">Project Language Mix</h2>
+
+<p align="left">
+  <img src="./profile/top-languages.svg" alt="Project Language Mix" />
+</p>
+
 <h2 align="left">Languages and Tools</h2>
 
 <div align="left">
