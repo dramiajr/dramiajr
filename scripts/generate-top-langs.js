@@ -13,16 +13,13 @@ const COLORS = {
   HTML: "#E34C26",
   CSS: "#563D7C",
   Shell: "#89E051",
-  Bash: "#89E051",
   Dockerfile: "#384D54",
   SQL: "#E38C00",
   PLpgSQL: "#336791",
   default: "#58A6FF",
 };
 
-const IGNORE_LANGS = new Set([
-  "Jupyter Notebook",
-]);
+const IGNORE_LANGS = new Set(["Jupyter Notebook"]);
 
 function escapeXml(value) {
   return String(value)
@@ -65,11 +62,11 @@ async function getRepos() {
       break;
     }
 
-    const usableRepos = data.filter((repo) => {
-      return !repo.fork && !repo.archived && !repo.private;
-    });
-
-    repos.push(...usableRepos);
+    repos.push(
+      ...data.filter((repo) => {
+        return !repo.fork && !repo.archived && !repo.private;
+      })
+    );
 
     if (data.length < 100) {
       break;
@@ -85,10 +82,10 @@ async function getLanguageTotals(repos) {
   const totals = {};
 
   for (const repo of repos) {
-    const languagesUrl = `https://api.github.com/repos/${USERNAME}/${repo.name}/languages`;
-
     try {
-      const languages = await githubFetch(languagesUrl);
+      const languages = await githubFetch(repo.languages_url);
+
+      console.log(`${repo.name}:`, languages);
 
       for (const [language, bytes] of Object.entries(languages)) {
         if (IGNORE_LANGS.has(language)) continue;
@@ -103,36 +100,41 @@ async function getLanguageTotals(repos) {
 }
 
 function buildRows(languageTotals) {
-  const sorted = Object.entries(languageTotals)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5);
+  const entries = Object.entries(languageTotals).sort((a, b) => b[1] - a[1]);
+  const totalBytes = entries.reduce((sum, [, bytes]) => sum + bytes, 0);
 
-  if (sorted.length === 0) {
+  console.log("Final language totals:", languageTotals);
+  console.log("Total bytes:", totalBytes);
+
+  if (entries.length === 0 || totalBytes === 0) {
     return `
   <text x="24" y="112" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">
-    No public language data found yet.
+    No public language data found.
   </text>`;
   }
 
-  const totalBytes = sorted.reduce((sum, [, bytes]) => sum + bytes, 0) || 1;
+  const topLanguages = entries.slice(0, 5);
 
-  const rowStartY = 92;
-  const rowGap = 30;
-  const barX = 132;
-  const barMaxWidth = 210;
+  const rowStartY = 103;
+  const rowGap = 28;
+  const barX = 170;
+  const barMaxWidth = 150;
 
-  return sorted
+  return topLanguages
     .map(([language, bytes], index) => {
       const percent = Math.round((bytes / totalBytes) * 100);
-      const barWidth = Math.max(8, Math.round((percent / 100) * barMaxWidth));
+      const barWidth = Math.max(6, Math.round((percent / 100) * barMaxWidth));
       const y = rowStartY + index * rowGap;
       const color = COLORS[language] || COLORS.default;
 
       return `
-  <text x="24" y="${y}" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">${escapeXml(language)}</text>
+  <circle cx="30" cy="${y - 4}" r="5" fill="${color}"/>
+  <text x="44" y="${y}" fill="#C9D1D9" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">${escapeXml(language)}</text>
+
   <rect x="${barX}" y="${y - 10}" width="${barMaxWidth}" height="9" rx="4.5" fill="#21262D"/>
   <rect x="${barX}" y="${y - 10}" width="${barWidth}" height="9" rx="4.5" fill="${color}"/>
-  <text x="365" y="${y}" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">${percent}%</text>`;
+
+  <text x="348" y="${y}" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">${percent}%</text>`;
     })
     .join("");
 }
@@ -153,6 +155,17 @@ function buildSvg(languageTotals) {
   <text x="24" y="58" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
     Based on public repositories
   </text>
+
+  <text x="24" y="80" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
+    LANGUAGE
+  </text>
+  <text x="170" y="80" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
+    USAGE
+  </text>
+  <text x="348" y="80" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="11" font-weight="700">
+    %
+  </text>
+
   ${rows}
 
   <text x="24" y="222" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">
