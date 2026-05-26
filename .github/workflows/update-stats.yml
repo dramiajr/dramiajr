@@ -17,7 +17,8 @@ jobs:
         uses: actions/checkout@v5
         with:
           token: ${{ secrets.STAT_CODE_TOKEN }}
-          persist-credentials: true
+          persist-credentials: false
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v6
@@ -29,6 +30,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
 
+      - name: Debug changed files
+        run: |
+          git status --short
+          echo "Branch: ${GITHUB_REF_NAME}"
+
       - name: Commit updated SVG
         run: |
           git config user.name "David Ramia Jr"
@@ -38,7 +44,12 @@ jobs:
 
           if git diff --cached --quiet; then
             echo "No SVG changes to commit."
-          else
-            git commit -m "Update profile language stats"
-            git push origin HEAD:${GITHUB_REF_NAME}
+            exit 0
           fi
+
+          git commit -m "Update profile language stats"
+
+          git remote set-url origin https://x-access-token:${STAT_CODE_TOKEN}@github.com/dramiajr/dramiajr.git
+          git push origin HEAD:${GITHUB_REF_NAME}
+        env:
+          PROFILE_STATS_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
