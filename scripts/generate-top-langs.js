@@ -9,12 +9,14 @@ const TOKEN = process.env.GITHUB_TOKEN;
 const COLORS = {
   Python: "#3776AB",
   JavaScript: "#F1E05A",
+  TypeScript: "#3178C6",
   HTML: "#E34C26",
   CSS: "#563D7C",
   Shell: "#89E051",
-  TypeScript: "#3178C6",
+  Bash: "#89E051",
   Dockerfile: "#384D54",
   SQL: "#E38C00",
+  PLpgSQL: "#336791",
   default: "#58A6FF",
 };
 
@@ -44,7 +46,8 @@ async function githubFetch(url) {
   const response = await fetch(url, { headers });
 
   if (!response.ok) {
-    throw new Error(`GitHub API error ${response.status}: ${url}`);
+    const body = await response.text();
+    throw new Error(`GitHub API error ${response.status}: ${url}\n${body}`);
   }
 
   return response.json();
@@ -58,15 +61,20 @@ async function getRepos() {
     const url = `https://api.github.com/users/${USERNAME}/repos?per_page=100&page=${page}&type=owner&sort=updated`;
     const data = await githubFetch(url);
 
-    if (!Array.isArray(data) || data.length === 0) break;
+    if (!Array.isArray(data) || data.length === 0) {
+      break;
+    }
 
-    repos.push(
-      ...data.filter((repo) => {
-        return !repo.fork && !repo.archived && !repo.private;
-      })
-    );
+    const usableRepos = data.filter((repo) => {
+      return !repo.fork && !repo.archived && !repo.private;
+    });
 
-    if (data.length < 100) break;
+    repos.push(...usableRepos);
+
+    if (data.length < 100) {
+      break;
+    }
+
     page += 1;
   }
 
@@ -94,20 +102,26 @@ async function getLanguageTotals(repos) {
   return totals;
 }
 
-function buildSvg(languageTotals) {
+function buildRows(languageTotals) {
   const sorted = Object.entries(languageTotals)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5);
 
+  if (sorted.length === 0) {
+    return `
+  <text x="24" y="112" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="13">
+    No public language data found yet.
+  </text>`;
+  }
+
   const totalBytes = sorted.reduce((sum, [, bytes]) => sum + bytes, 0) || 1;
 
-  const width = 440;
   const rowStartY = 92;
   const rowGap = 30;
   const barX = 132;
   const barMaxWidth = 210;
 
-  const rows = sorted
+  return sorted
     .map(([language, bytes], index) => {
       const percent = Math.round((bytes / totalBytes) * 100);
       const barWidth = Math.max(8, Math.round((percent / 100) * barMaxWidth));
@@ -121,10 +135,16 @@ function buildSvg(languageTotals) {
   <text x="365" y="${y}" fill="#8B949E" font-family="Segoe UI, Ubuntu, sans-serif" font-size="12">${percent}%</text>`;
     })
     .join("");
+}
 
-  return `<svg width="${width}" height="245" viewBox="0 0 ${width} 245" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="${width}" height="245" rx="14" fill="#0D1117"/>
-  <rect x="0.5" y="0.5" width="${width - 1}" height="244" rx="13.5" stroke="#30363D"/>
+function buildSvg(languageTotals) {
+  const width = 440;
+  const height = 245;
+  const rows = buildRows(languageTotals);
+
+  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="${width}" height="${height}" rx="14" fill="#0D1117"/>
+  <rect x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="13.5" stroke="#30363D"/>
 
   <text x="24" y="36" fill="#F0F6FC" font-family="Segoe UI, Ubuntu, sans-serif" font-size="18" font-weight="700">
     Project Language Mix
@@ -146,6 +166,8 @@ async function main() {
   fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
 
   const repos = await getRepos();
+  console.log(`Found ${repos.length} public, non-fork, non-archived repos.`);
+
   const languageTotals = await getLanguageTotals(repos);
   const svg = buildSvg(languageTotals);
 
