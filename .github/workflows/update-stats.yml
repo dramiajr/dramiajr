@@ -30,17 +30,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
 
-      - name: Debug changed files
+      - name: Verify SVG generation
         run: |
-          git status --short
-          echo "Branch: ${GITHUB_REF_NAME}"
+          echo "Current directory:"
+          pwd
+
+          echo "Repo files:"
+          ls -la
+
+          echo "Profile folder:"
+          ls -la profile || echo "profile folder does not exist"
+
+          if [ ! -f profile/top-languages.svg ]; then
+            echo "Error: profile/top-languages.svg was not generated"
+            exit 1
+          fi
+
+          echo "SVG generated successfully:"
+          ls -lh profile/top-languages.svg
 
       - name: Commit updated SVG
         run: |
           git config user.name "David Ramia Jr"
           git config user.email "davidramiajr@gmail.com"
 
-          git add profile/top-langs.svg
+          git add profile/top-languages.svg
 
           if git diff --cached --quiet; then
             echo "No SVG changes to commit."
@@ -49,7 +63,7 @@ jobs:
 
           git commit -m "Update profile language stats"
 
-          git remote set-url origin https://x-access-token:${STAT_CODE_TOKEN}@github.com/dramiajr/dramiajr.git
+          git remote set-url origin https://x-access-token:${PROFILE_STATS_TOKEN}@github.com/dramiajr/dramiajr.git
           git push origin HEAD:${GITHUB_REF_NAME}
         env:
           PROFILE_STATS_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
