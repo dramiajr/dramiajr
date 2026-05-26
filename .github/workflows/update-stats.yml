@@ -14,22 +14,30 @@ jobs:
 
     steps:
       - name: Checkout profile repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          token: ${{ github.token }}
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Generate language stats SVG
         run: node scripts/generate-top-langs.js
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Commit updated SVG
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add profile/top-langs.svg
-          git diff --cached --quiet || git commit -m "Update profile language stats"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No SVG changes to commit."
+          else
+            git commit -m "Update profile language stats"
+            git push
+          fi
