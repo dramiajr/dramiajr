@@ -14,19 +14,25 @@ jobs:
 
     steps:
       - name: Checkout profile repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
-          token: ${{ github.token }}
+          persist-credentials: true
 
       - name: Set up Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
 
       - name: Generate language stats SVG
         run: node scripts/generate-top-langs.js
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Debug git status
+        run: |
+          git status --short
+          git remote -v
+          echo "Branch: ${GITHUB_REF_NAME}"
 
       - name: Commit updated SVG
         run: |
@@ -39,5 +45,5 @@ jobs:
             echo "No SVG changes to commit."
           else
             git commit -m "Update profile language stats"
-            git push
+            git push origin HEAD:${GITHUB_REF_NAME}
           fi
