@@ -16,7 +16,7 @@ jobs:
       - name: Checkout profile repo
         uses: actions/checkout@v5
         with:
-          token: ${{ secrets.PROFILE_STATS_TOKEN }}
+          token: ${{ secrets.STAT_CODE_TOKEN }}
           persist-credentials: true
 
       - name: Set up Node
@@ -27,7 +27,7 @@ jobs:
       - name: Generate language stats SVG
         run: node scripts/generate-top-langs.js
         env:
-          GITHUB_TOKEN: ${{ secrets.PROFILE_STATS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.STAT_CODE_TOKEN }}
 
       - name: Commit updated SVG
         run: |
