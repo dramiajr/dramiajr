@@ -5,7 +5,7 @@
 <br>
 
 <p align="left">
-  Network technician, builder, and hands-on problem solver focused on networking, Linux, automation, and practical internal tools.
+Enterprise Network Engineer I, builder, and hands-on problem solver focused on networking, Linux, automation, and practical internal tools.
 </p>
 
 <blockquote>
